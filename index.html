@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #7e7e7e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 350px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+p {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Age Calculator</h1>
+      <label for="birthdate">Enter Your Birthdate:</label>
+      <input type="date" id="birthdate" />
+      <button onclick="calculateAge()">Calculate Age</button>
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function calculateAge() {
+        const birthdate = document.getElementById("birthdate").value;
+        const resultElement = document.getElementById("result");
+
+        if (birthdate) {
+          const today = new Date();
+          const birthDate = new Date(birthdate);
+
+          let ageYears = today.getFullYear() - birthDate.getFullYear();
+          let ageMonths = today.getMonth() - birthDate.getMonth();
+          let ageDays = today.getDate() - birthDate.getDate();
+
+          if (ageDays < 0) {
+            ageMonths--;
+            ageDays += new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              0
+            ).getDate();
+          }
+
+          if (ageMonths < 0) {
+            ageYears--;
+            ageMonths += 12;
+          }
+
+          resultElement.innerText = `Your age is ${ageYears} years, ${ageMonths} months, and ${ageDays} days.`;
+          resultElement.style.color = "green"; // Set the text color to green
+        } else {
+          resultElement.innerText = "Please enter your birthdate"; // Clear the result if birthdate is not entered
+          resultElement.style.color = "red";
+        }
+      }
+    </script>
+  </body>
+</html>
